@@ -12,11 +12,20 @@ function listarAtividades() {
 	listElement.innerHTML = "";
 	
 	for(nome of nomes){ //Inserção automática das atividades predefinidas
-		var item  = document.createElement("li");
-		var texto = document.createTextNode(nome);
+		var item  = document.createElement("li"); //Cria item
+		var texto = document.createTextNode(nome); //Cria Nó de texto 
+		item.appendChild(texto); //Adiciona texto ao item
 		
-		item.appendChild(texto);
-		listElement.appendChild(item);
+		var link = document.createElement("a"); //Cria link
+		link.setAttribute("href","#"); //Seta parametro href no link
+		var linkTexto = document.createTextNode(" Excluir"); //Cria Nó de texto para o link
+		link.appendChild(linkTexto); //Adiciona o texto ao link
+		
+		item.appendChild(link); //Adiciona link ao item
+		listElement.appendChild(item); //Adiciona item na lista
+		
+		var posicaoAtividade = nomes.indexOf(nome);
+		link.setAttribute("onclick","removerAtividade("+posicaoAtividade+")");
 	}
 }
 
@@ -45,5 +54,7 @@ function addAtividade(){
 
 buttonElemnt.onclick = addAtividade;
 
-
-
+function removerAtividade(posicao){
+	nomes.splice(posicao,1);
+	listarAtividades();
+}
