@@ -5,7 +5,7 @@ var buttonElemnt = document.querySelector("body button");
 
 
 
-var nomes = ["Escovar os dentes", "Fazer exercícios", "Ler um bom livro!"]; //Atividades predefinidas
+var nomes = JSON.parse(localStorage.getItem("nomes")) || [];//["Escovar os dentes", "Fazer exercícios", "Ler um bom livro!"]; //Atividades predefinidas
 
 function listarAtividades() {
 	
@@ -49,7 +49,7 @@ function addAtividade(){
 	nomes.push(atividade);
 	inputElement.value="";
 	listarAtividades();
-
+	saveStorage();
 }
 
 buttonElemnt.onclick = addAtividade;
@@ -57,4 +57,9 @@ buttonElemnt.onclick = addAtividade;
 function removerAtividade(posicao){
 	nomes.splice(posicao,1);
 	listarAtividades();
+	saveStorage();
+}
+
+function saveStorage(){
+	localStorage.setItem("nomes",JSON.stringify(nomes));
 }
